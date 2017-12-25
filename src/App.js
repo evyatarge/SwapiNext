@@ -15,8 +15,7 @@ class App extends Component {
         super(props);
         this.state = {
             page: null,
-            pageTitle: "App Title",
-
+            pageTitle: "",
         };
     }
 
@@ -24,7 +23,7 @@ class App extends Component {
     return (
       <div className="App">
 
-        <BasicPage page = {this.state.page} pageTitle = {this.state.pageTitle}/>
+        <BasicPage page = {this.state.page}/>
 
       </div>
     );

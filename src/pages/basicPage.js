@@ -1,118 +1,100 @@
 import React, { Component } from 'react';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
-
-// import Swapi from '../SWAPI-Wrapper/swapi.js';
+import {get} from '../services/swapiService';
+import '../css/basicPage.css';
 
 
-const BasicPage = (props) => {
+class BasicPage extends Component {
 
-    const page = props.page;
-    var pageTitle = props.pageTitle;
+    constructor(props){
+        super(props);
+        const page = props.page;
+        this.pageTitle = "Star Wars characters";
 
-    // const sw = props.swapi.get('people/').then((result) => {
-    //                 var obj = JSON.parse(result);
-    //                 console.log(JSON.stringify(obj, null, 4));
-    //                 // console.log(result);
-    //                 return result.nextPage();
-    //             }).then((result) => {
-    //                 var obj = JSON.parse(result);
-    //                 console.log(JSON.stringify(obj, null, 4));
-    //                 // console.log(result);
-    //                 return result.previousPage();
-    //             }).then((result) => {
-    //                 var obj = JSON.parse(result);
-    //                 console.log(JSON.stringify(obj, null, 4));
-    //                 // console.log(result);
-    //             }).catch((err) => {
-    //                 console.log(err);
-    //             });
 
-    var person;
+        this.state = {
+            data : [],
+        };
+    }
 
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function(e) {
-        if (this.readyState     == 4 && this.status == 200) {
-           // Typical action to be performed when the document is ready:
-           var res = JSON.parse(xhttp.responseText);
-           console.log("after change res = ");
-           console.log(res);
-           person=res;
+    componentDidMount(){
+        this.setPersonWithPlanetData();
+    }
+
+    setPersonWithPlanetData(){
+        var self = this;
+        get('https://swapi.co/api/people').then(function(result) {
+            result = JSON.parse(result);
+            self.setPlanets(result);
+        }, function(err) {
+            console.log(err);
+        });
+    }
+
+    setPlanets(persons){
+        var self = this;
+        var personsNames = self.getPersonsNames(persons.results);
+        let data = [];
+        for (let person=0; person<(persons.results).length; person++) {
+            get(persons.results[person].homeworld).then(function(result) {
+                let planet = JSON.parse(result);
+                data.push({name: personsNames[person], homePlanet: planet.name});
+                self.setState({data:data});
+            }, function(err) {
+                console.log(err); // Error: "It broke"
+            });
         }
-    };
-    xhttp.open("GET", "https://swapi.co/api/people/1", true);
-    xhttp.send();
+    }
 
-    // fetch('https://swapi.co/api/people').then((result) => {
-    //     const res = result;
-    //     const json = JSON.parse(res);
-    //     document.getElementsByTagName("LI").innerHTML = json;
-    //     person = json;
-    // },(error)=>{
-    //     console.log('error in my fetch: '+error);
-    // });
+    getPersonsNames(personsList){
+        var names = [];
 
-    // person =  sw.getPerson(1).then((result) => {
-    //     console.log(result);
-    //     return result;
-    // });
-
-    // document.title = props.page.title;
-    const data = [{
-        name: 'Tanner Linsley',
-        age: 26,
-        friend: {
-        name: 'Jason Maurer',
-        age: 23,
+        for (var people in personsList) {
+            if (personsList.hasOwnProperty(people)) {
+                names.push(personsList[people].name);
+            }
         }
-    }];
+        return names;
+    }
 
-    const columns = [{
-        Header: 'Name',
-        accessor: 'name' // String-based value accessors!
-        }, {
-        Header: 'Age',
-        accessor: 'age',
-        Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-        }, {
-        id: 'friendName', // Required because our accessor is not a string
-        Header: 'Friend Name',
-        accessor: d => d.friend.name // Custom value accessors!
-        }, {
-        Header: props => <span>Friend Age</span>, // Custom header components!
-        accessor: 'friend.age'
-    }];
+    render() {
 
+        const {data} = this.state;
 
-    return(
+        return(
 
-        <div>
-            <header className="page-header">
-              <h1 className="page-title">{pageTitle}</h1>
-            </header>
+            <div>
+                <header className="page-header">
+                  <h1 className="page-title">{this.pageTitle}</h1>
+                </header>
 
+              <table className='table'>
+                  <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Home Planet</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {data.map(row => (
+                          <tr key={row.name}>
+                              <td>{row.name}</td>
+                              <td>{row.homePlanet}</td>
+                          </tr>
+                      ))}
+                  </tbody>
+              </table>
 
-              <ReactTable
-                data={data}
-                columns={columns}
-              />
-
-            <ul>
-                <li>
-                    {person}
-                </li>
-            </ul>
-
-            <footer>
-                <button className="buttonBack" onClick={props.onClickBack}>
-                  Back
-                </button>
-                <button className="buttonNext" onClick={props.onClickNext}>
-                  Next
-                </button>
-            </footer>
-        </div>
-    );
+                <footer>
+                    <button className="buttonBack" onClick={this.props.onClickBack}>
+                      Back
+                    </button>
+                    <button className="buttonNext" onClick={this.props.onClickNext}>
+                      Next
+                    </button>
+                </footer>
+            </div>
+        );
+    }
 };
 
 export default BasicPage;
