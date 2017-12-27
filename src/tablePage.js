@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Table from './table';
-import './css/basicPage.css';
+import './css/tablePage.css';
 
 
 class TablePage extends Component {

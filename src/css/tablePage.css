@@ -1,0 +1,13 @@
+table{
+    text-align: center;
+    width: 300px;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+table td{
+    border: 3px solid;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+td:hover {background-color: #ddd;}
