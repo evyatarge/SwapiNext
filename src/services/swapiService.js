@@ -22,18 +22,3 @@ export function  get(path){
 
   });
 }
-
-// function getSwapiElement(path){
-//     var xhttp = new XMLHttpRequest();
-//     xhttp.onreadystatechange = function(e) {
-//         if (this.readyState == 4 && this.status == 200) {
-//            // Typical action to be performed when the document is ready:
-//            var res = JSON.parse(xhttp.responseText);
-//            console.log("after change res = ");
-//            console.log(res);
-//            return res;
-//         }
-//     };
-//     xhttp.open("GET", "https://swapi.co/api/"+path, true);
-//     xhttp.send();
-// }
