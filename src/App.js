@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-import modal from './modal/characterModal';
-import CharactersPage from './pages/charactersPage';
-import PlanetsPage from './pages/planetsPage';
-import BasicPage from './pages/basicPage';
+import Modal from './characterModal';
+import BasicPage from './basicPage';
+import Table from './table';
+import {get} from './services/swapiService';
 
-import logo from './logo.svg';
 import './App.css';
 
 
@@ -13,17 +12,19 @@ class App extends Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            page: null,
-            pageTitle: "",
-        };
     }
 
+
   render() {
+      const data = [
+          {name: "Luke Skywalker", homeworld: "Tatooine"},
+          {name: "R2-D2", homeworld: "Naboo"}
+      ];
+      // <BasicPage page='planets' />
     return (
       <div className="App">
 
-        <BasicPage page = {this.state.page}/>
+        <BasicPage page='characters' title='Star Wars characters' data={data}/>
 
       </div>
     );
