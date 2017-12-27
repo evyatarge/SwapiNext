@@ -3,7 +3,7 @@ import Table from './table';
 import './css/basicPage.css';
 
 
-class BasicPage extends Component {
+class TablePage extends Component {
 
     constructor(props){
         super(props);
@@ -28,4 +28,4 @@ class BasicPage extends Component {
     }
 };
 
-export default BasicPage;
+export default TablePage;

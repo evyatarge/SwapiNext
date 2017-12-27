@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import CellData from './cellData';
 
 
 class Table extends Component {
@@ -10,15 +9,21 @@ class Table extends Component {
         this.data = props.data;
     }
 
+    CellData(props){
+        return (
+            <td onClick={props.link? this.link : () => {}}>
+                {props.data}
+            </td>
+        );
+    }
+
     render(){
         return(
             <table>
                 <thead>
                     <tr>
-                        {this.headers.map( row => (
-                            <td>
-                                <CellData data={row} />
-                            </td>
+                        {this.headers.map( col => (
+                            <this.CellData data={col} />
                             )
                         )}
                     </tr>
@@ -26,9 +31,9 @@ class Table extends Component {
                 <tbody>
 
                         {this.data.map( row => (
-                            <tr>
+                            <tr key={row.index}>
                                 {Object.values(row).map( cell => (
-                                    <td><CellData data={cell} /></td>
+                                    <this.CellData data={cell} />
                                 ))}
                             </tr>
                             )

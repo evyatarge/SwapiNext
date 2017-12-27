@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
 import Modal from './characterModal';
-import BasicPage from './basicPage';
-import Table from './table';
+import TablePage from './tablePage';
 import {get} from './services/swapiService';
 
-import './App.css';
+import './css/App.css';
 
 
 class App extends Component {
@@ -20,17 +19,17 @@ class App extends Component {
           {name: "Luke Skywalker", homeworld: "Tatooine"},
           {name: "R2-D2", homeworld: "Naboo"},
       ];
-      const planetData = [
-          {name: "Tatooine", terrian: "desert", population:200000},
-          {name: "Naboo", terrian: "grassy hills, swamps, forest", population:450000000},
-      ];
-      // <BasicPage page='planets' />
+      // const planetData = [
+      //     {name: "Tatooine", terrian: "desert", population:200000},
+      //     {name: "Naboo", terrian: "grassy hills, swamps, forest", population:450000000},
+      // ];
+      // <TablePage page='planets' />
     return (
       <div className="App">
 
-        <BasicPage page='characters' title='Star Wars Characters' headers={['Name','Home Planet']} data={charactersData}/>
+        <TablePage page='people' title='Star Wars Characters' headers={['Name','Home Planet']} data={charactersData}/>
 
-          {/*<BasicPage page='planets' title='Star Wars Planets' headers={['Name','Terrian', 'Population']} data={planetData}/>*/}
+          {/*<TablePage page='planets' title='Star Wars Planets' headers={['Name','Terrian', 'Population']} data={planetData}/>*/}
 
       </div>
     );
