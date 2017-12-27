@@ -6,12 +6,13 @@ class CellData extends Component {
     constructor(props){
         super(props);
         this.data = props.data;
+        this.link = props.link;
     }
 
     render(){
         return (
-            <span>
-                this.data;
+            <span onClick={this.link? this.link : console.log}>
+                {this.data}
             </span>
         );
     }

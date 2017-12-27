@@ -9,13 +9,18 @@ class BasicPage extends Component {
         super(props);
         this.page = props.page;
         this.title = props.title;
+        this.headers = props.headers;
+        this.data = props.data;
     }
 
 
     render() {
         return(
+
             <div>
-                <Table data={this.props.data}/>
+                <h2>{this.title}</h2>
+
+                <Table headers={this.headers} data={this.data}/>
                 <button>Back</button>
                 <button>Next</button>
             </div>

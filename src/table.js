@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import CellData from './cellData';
 
 
 class Table extends Component {
 
     constructor(props){
         super(props);
+        this.headers = props.headers;
         this.data = props.data;
     }
 
@@ -13,20 +15,21 @@ class Table extends Component {
             <table>
                 <thead>
                     <tr>
-                        <td>
-                            Name
-                        </td>
-                        <td>
-                            Home Planet
-                        </td>
+                        {this.headers.map( row => (
+                            <td>
+                                <CellData data={row} />
+                            </td>
+                            )
+                        )}
                     </tr>
                 </thead>
                 <tbody>
 
                         {this.data.map( row => (
                             <tr>
-                                <td>{row.name}</td>
-                                <td>{row.homeworld}</td>
+                                {Object.values(row).map( cell => (
+                                    <td><CellData data={cell} /></td>
+                                ))}
                             </tr>
                             )
                         )}

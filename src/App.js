@@ -16,15 +16,21 @@ class App extends Component {
 
 
   render() {
-      const data = [
+      const charactersData = [
           {name: "Luke Skywalker", homeworld: "Tatooine"},
-          {name: "R2-D2", homeworld: "Naboo"}
+          {name: "R2-D2", homeworld: "Naboo"},
+      ];
+      const planetData = [
+          {name: "Tatooine", terrian: "desert", population:200000},
+          {name: "Naboo", terrian: "grassy hills, swamps, forest", population:450000000},
       ];
       // <BasicPage page='planets' />
     return (
       <div className="App">
 
-        <BasicPage page='characters' title='Star Wars characters' data={data}/>
+        <BasicPage page='characters' title='Star Wars Characters' headers={['Name','Home Planet']} data={charactersData}/>
+
+          {/*<BasicPage page='planets' title='Star Wars Planets' headers={['Name','Terrian', 'Population']} data={planetData}/>*/}
 
       </div>
     );
