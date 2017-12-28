@@ -5,35 +5,44 @@ class Table extends Component {
 
     constructor(props){
         super(props);
-        this.headers = props.headers;
+        this.tabelHeaders = props.tabelHeaders;
         this.data = props.data;
+        this.state = {
+            tableData : [],
+        }
     }
 
-    CellData(props){
-        return (
-            <td onClick={props.link? this.link : () => {}}>
-                {props.data}
-            </td>
-        );
+    componentDidMount(){
+        this.setState({tableData:this.data()});
     }
+
+    // CellData(props){
+    //     return (
+    //         <td onClick={props.link? this.link : () => {}}>
+    //             {props.data}
+    //         </td>
+    //     );
+    // }
 
     render(){
+        const tableData = this.state.tableData===undefined? [] : this.state.tableData;
         return(
             <table>
                 <thead>
                     <tr>
-                        {this.headers.map( col => (
-                            <this.CellData data={col} />
+                        {this.tabelHeaders.map( col => (
+                            col
+
                             )
                         )}
                     </tr>
                 </thead>
                 <tbody>
 
-                        {this.data.map( row => (
+                        {tableData.map( row => (
                             <tr key={row.index}>
                                 {Object.values(row).map( cell => (
-                                    <this.CellData data={cell} />
+                                    cell
                                 ))}
                             </tr>
                             )

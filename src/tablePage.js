@@ -9,7 +9,7 @@ class TablePage extends Component {
         super(props);
         this.page = props.page;
         this.title = props.title;
-        this.headers = props.headers;
+        this.tabelHeaders = props.tabelHeaders;
         this.data = props.data;
     }
 
@@ -20,7 +20,7 @@ class TablePage extends Component {
             <div>
                 <h2>{this.title}</h2>
 
-                <Table headers={this.headers} data={this.data}/>
+                <Table tabelHeaders={this.tabelHeaders} data={this.data}/>
                 <button>Back</button>
                 <button>Next</button>
             </div>
